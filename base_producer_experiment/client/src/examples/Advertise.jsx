@@ -51,6 +51,7 @@ import {
       console.log("Saved priceOfProduct to player.round object: ", priceOfProduct);
     }
 
+    // As the name describes, warrant price and choice are saved here.  
     function handleWarrantChoice(e, WarrantPrice, WarrantChoice) {
       player.round.set("WarrantPrice", WarrantPrice);
       player.round.set("WarrantChoice", WarrantChoice);
@@ -95,13 +96,15 @@ import {
       <div className="md:min-w-96 lg:min-w-128 xl:min-w-192 flex flex-col items-center space-y-10">
         {}
         <br/><br/><br/><br/><br/>
+
         <div>
+          {/* Where is this on the page?? */}
         <h1><b>You are a producer of toothpaste.</b> </h1>
-
         </div>
-
+        
         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        {/* Player chooses tooth paste quality here */}
         <h1><b>You are a producer of toothpaste</b></h1>
           <h1><b>Choose what to produce.</b> All your products this round will be the quality you select. <br/> Your current choice is to produce: <b>{player.round.get("productionQuality")} </b> quality toothspaste.</h1>
           <div className="flex justify-center space-x-4"> {/* This flex container will lay out its children (products) in a row */}
@@ -110,6 +113,7 @@ import {
         </div>
 
 
+        {/* Player decides what quality is advertised */}
         <br/><br/><br/><br/><br/>
           <h1><b>Choose how you want to advertise it.</b> All your products will be advertised this way.</h1>
           <p>When people are buying, they will only know the price and the advertised quality.
@@ -122,6 +126,7 @@ import {
         </div>
 
 
+        {/* Player decides the price of tooth paste here */}
         <br/><br/><br/><br/><br/>
           <h1><b>Choose the price for your product</b></h1>
 
@@ -137,6 +142,8 @@ import {
 
 
         <br/><br/><br/><br/><br/>
+        {/* Player decides to warrant there ad or not here */}
+        {/* TODO: Add description to this section, but logic works for now */}
         <h1><b>Choose if you would like to Warrant your product or not:</b></h1>
         <div className="flex justify-center space-x-4"> 
         <WarrantButton price={'0'} on_button_click={(e) => handleWarrantChoice(e, 0, false)}></WarrantButton>
@@ -219,6 +226,8 @@ import {
     )
   }
 
+  //Handles how the warrant button will be displayed
+  //Honestly not ideal 
   function WarrantButton({price, on_button_click}){
     if(price === "$0"){
       return(
