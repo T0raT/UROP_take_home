@@ -14,6 +14,8 @@ export function SalesResults({roundNumber}) {
   const priceOfProduct = player.get(roundNumberText.concat("_choices"))[2]
   const productionCost = player.get(roundNumberText.concat("_choices"))[3]
   
+  const WarrantPrice = player.get(roundNumberText.concat("_choices"))[4]
+  const WarrantChoice = player.get(roundNumberText.concat("_choices"))[5]
 
   let imageUrl = "";
   //console.log('roundNumberText', roundNumberText)
@@ -41,8 +43,25 @@ export function SalesResults({roundNumber}) {
   const numBuyers = Math.floor((Math.random() * (max - min ) + min)) ;
 
 
-  const salesCount = numBuyers * (priceOfProduct - productionCost);
+
+  //Warrant RNG logic goes here
+  /* 
+    TODO: Check if player is challenged, if true then also check if 
+    productionQuality === advertisementQuality.
+    If they aren't equal then player loses 90% of their current round income.
+    */
+  let WarrantChallenge = false;
+  const WarrantRNG = Math.random();
+  if (WarrantRNG <= 0.3) {
+    WarrantChallenge = true;
+  }
+
+
+
+  //Calculates the final score for each round
+  const salesCount = (numBuyers * (priceOfProduct - productionCost));
   const finalScore = currentScore + salesCount
+
 
   function handleSubmit() {
     console.log('Moving on from results round');
