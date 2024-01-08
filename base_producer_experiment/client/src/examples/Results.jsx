@@ -28,6 +28,7 @@ export function SalesResults({roundNumber}) {
   const currentScore = player.get("score") || 0; // , adQuality, points, salesCount, numBuyers
   
   //let points = 10;
+  // Question: What does points do?
   let points = priceOfProduct
 
   const min = 10;
@@ -44,22 +45,30 @@ export function SalesResults({roundNumber}) {
 
 
 
+
   //Warrant RNG logic goes here
   /* 
     TODO: Check if player is challenged, if true then also check if 
     productionQuality === advertisementQuality.
     If they aren't equal then player loses 90% of their current round income.
+
+    TODO 2: Ok this just popped in mind, but should players be punished for
+    lying about high quality lol???
+    What if player makes high quality and chose to advertise as low quality?
+    Kinda weird for player to lose score if that happens.
     */
+  const salesCount = (numBuyers * (priceOfProduct - productionCost));
   let WarrantChallenge = false;
-  const WarrantRNG = Math.random();
-  if (WarrantRNG <= 0.3) {
+  if (Math.random() <= 0.3) {
     WarrantChallenge = true;
   }
 
+  if (WarrantChallenge == true) {
+    if (product)
+  }
 
 
   //Calculates the final score for each round
-  const salesCount = (numBuyers * (priceOfProduct - productionCost));
   const finalScore = currentScore + salesCount
 
 
