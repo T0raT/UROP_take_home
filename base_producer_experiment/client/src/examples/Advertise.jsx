@@ -25,7 +25,10 @@ import {
       [player.round.get("productionQuality"),
       player.round.get("advertisementQuality"),
       player.round.get("priceOfProduct"),
-      player.round.get("productionCost")])
+      player.round.get("productionCost"),
+      player.round.get("WarrantPrice"),
+      player.round.get("WarrantChoice"),])
+
 
       player.stage.set("submit", true);//player.stage.submit();
     }
@@ -46,6 +49,15 @@ import {
     function handlePriceChoice(e, priceOfProduct) {
       player.round.set("priceOfProduct", priceOfProduct);
       console.log("Saved priceOfProduct to player.round object: ", priceOfProduct);
+    }
+
+    function handleWarrantChoice(e, WarrantPrice, WarrantChoice) {
+      player.round.set("WarrantPrice", WarrantPrice);
+      player.round.set("WarrantChoice", WarrantChoice);
+
+      console.log("saved price of warrant to player.round object: ", WarrantPrice);
+      console.log("Saved player's warrant choice to player.round object: ", WarrantChoice);
+      
     }
   
     const isResultStage = stage.get("name") === "result";
@@ -82,10 +94,9 @@ import {
     return (
       <div className="md:min-w-96 lg:min-w-128 xl:min-w-192 flex flex-col items-center space-y-10">
         {}
-        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/>
         <div>
         <h1><b>You are a producer of toothpaste.</b> </h1>
-        <h1>You will now decide what to produce, how to advertise it and the price.</h1>
 
         </div>
 
@@ -97,7 +108,9 @@ import {
           <ProductionAlternative title="Standard Toothpaste" cost="5" quality="low" imageUrl={"url(/images/toothpastestandard.jpg)"} on_button_click={(e) => handleProductionChoice(e, "low")}/>
           <ProductionAlternative title="Amazing Toothpaste" cost="9" quality="high" imageUrl={"url(/images/toothpaseamazing.jpg)"} on_button_click={(e) => handleProductionChoice(e, "high")}/> {/*Here we need to pass what kind of advertisement option the player chose*/ }
         </div>
-        <br/><br/><br/><br/><br/><br/><br/>
+
+
+        <br/><br/><br/><br/><br/>
           <h1><b>Choose how you want to advertise it.</b> All your products will be advertised this way.</h1>
           <p>When people are buying, they will only know the price and the advertised quality.
             They will not know the true quality until they have bought the product.</p> <br/>
@@ -107,6 +120,8 @@ import {
           <AdvertisementAlternative title="Standard Toothpaste (low quality)"  quality="low" imageUrl={"url(/images/toothpastestandard.jpg)"} on_button_click={(e) => handleAdverisementChoice(e, "low")}/>
           <AdvertisementAlternative title="Amazing Toothpaste (high quality)"  quality="high" imageUrl={"url(/images/toothpaseamazing.jpg)"} on_button_click={(e) => handleAdverisementChoice(e, "high")}/>
         </div>
+
+
         <br/><br/><br/><br/><br/>
           <h1><b>Choose the price for your product</b></h1>
 
@@ -119,6 +134,18 @@ import {
           <PriceButton text={'$10'} on_button_click={(e) => handlePriceChoice(e, 10)}></PriceButton>
           <PriceButton text={'$15'} on_button_click={(e) => handlePriceChoice(e, 15)}></PriceButton>
           </div>
+
+
+        <br/><br/><br/><br/><br/>
+        <h1><b>Choose if you would like to Warrant your product or not:</b></h1>
+        <div className="flex justify-center space-x-4"> 
+        <WarrantButton price={'0'} on_button_click={(e) => handleWarrantChoice(e, 0, false)}></WarrantButton>
+        <WarrantButton price={'150'} on_button_click={(e) => handleWarrantChoice(e, 100, true)}></WarrantButton>
+        </div>
+
+
+
+
           <ProfitMarginCalculation producerPlayer = {player}/>
 
           <br/><br/>
@@ -192,6 +219,18 @@ import {
     )
   }
 
+  function WarrantButton({price, on_button_click}){
+    if(price === "$0"){
+      return(
+        <Button handleClick={on_button_click} > Do not warrant my product </Button>
+      )
+    } else {
+      return (
+        <Button handleClick={on_button_click} > Warrant my product for ${price} </Button>
+      )
+    }
+  }
+
   function PlayerScore(player, onChange, isResultStage) {
     return (
       <div key={player.id} className="py-4">
@@ -226,4 +265,12 @@ import {
 
       </div>
     )
+  }
+  function handleWarrantChoice(e, WarrantPrice, WarrantChoice) {
+    player.round.set("WarrantPrice", WarrantPrice);
+    player.round.set("WarrantChoice", WarrantChoice);
+
+    console.log("saved price of warrant to player.round object: ", WarrantPrice);
+    console.log("Saved player's warrant choice to player.round object: ", WarrantChoice);
+    
   }

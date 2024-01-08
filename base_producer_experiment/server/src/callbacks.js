@@ -7,49 +7,49 @@ Empirica.onGameStart(({ game }) => {
     name: "Advertise",
     task: "advertise",
   });
-  round0.addStage({ name: "advertiseProduct", duration: 240 });
+  round0.addStage({ name: "advertiseProduct", duration: 9876 });
 
   const round1 = game.addRound({
     name: "Results",
     task: "results",
   });
-  round1.addStage({ name: "Result", duration: 140 });
+  round1.addStage({ name: "Result", duration: 9876 });
 
   const round2 = game.addRound({
     name: "Advertise",
     task: "advertise2",
   });
-  round2.addStage({ name: "advertiseProduct", duration: 240 });
+  round2.addStage({ name: "advertiseProduct", duration: 9876 });
   
   const round3 = game.addRound({
     name: "Results",
     task: "results2",
   });
-  round3.addStage({ name: "Result", duration: 140 });
+  round3.addStage({ name: "Result", duration: 9876 });
 
   const round4 = game.addRound({
     name: "Advertise",
     task: "advertise3",
   });
-  round4.addStage({ name: "advertiseProduct", duration: 240 });
+  round4.addStage({ name: "advertiseProduct", duration: 9876 });
   
   const round5 = game.addRound({
     name: "Results",
     task: "results3",
   });
-  round5.addStage({ name: "Result", duration: 140 });
+  round5.addStage({ name: "Result", duration: 9876 });
 
   const round6 = game.addRound({
     name: "Advertise",
     task: "advertise4",
   });
-  round6.addStage({ name: "advertiseProduct", duration: 240 });
+  round6.addStage({ name: "advertiseProduct", duration: 9876 });
   
   const round7 = game.addRound({
     name: "Game Results",
     task: "results4",
   });
-  round7.addStage({ name: "Result", duration: 140 });
+  round7.addStage({ name: "Result", duration: 9876 });
 
 });
 

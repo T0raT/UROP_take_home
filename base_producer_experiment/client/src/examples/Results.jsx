@@ -13,6 +13,8 @@ export function SalesResults({roundNumber}) {
   const advertisementQuality = player.get(roundNumberText.concat("_choices"))[1]
   const priceOfProduct = player.get(roundNumberText.concat("_choices"))[2]
   const productionCost = player.get(roundNumberText.concat("_choices"))[3]
+  
+
   let imageUrl = "";
   //console.log('roundNumberText', roundNumberText)
   if (advertisementQuality === "high") {
