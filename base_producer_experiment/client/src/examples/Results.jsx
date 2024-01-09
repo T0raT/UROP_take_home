@@ -25,7 +25,7 @@ export function SalesResults({roundNumber}) {
     imageUrl = "/images/toothpastestandard.jpg"; // Replace with the actual URL for low quality
   }
 
-  const currentScore = player.get("score") || 0; // , adQuality, points, salesCount, numBuyers
+  const currentScore = player.get("score") || 0; // , adQuality, points, salesScore, numBuyers
   
   //let points = 10;
   // Question: What does points do?
@@ -41,10 +41,8 @@ export function SalesResults({roundNumber}) {
   //    case "low":
   //      switch (priceOfProduct) {case "high": min =10, max=20; break; case "low": min = 50, max = 80; break;}
   //  }
+
   const numBuyers = Math.floor((Math.random() * (max - min ) + min)) ;
-
-
-
 
   //Warrant RNG logic goes here
   /* 
@@ -52,24 +50,34 @@ export function SalesResults({roundNumber}) {
     productionQuality === advertisementQuality.
     If they aren't equal then player loses 90% of their current round income.
 
-    TODO 2: Ok this just popped in mind, but should players be punished for
-    lying about high quality lol???
-    What if player makes high quality and chose to advertise as low quality?
-    Kinda weird for player to lose score if that happens.
+    TODO 2: Different issue now, im thinking about changing salesScore and finalScore
+    by saving them into an object and dynamically updating them dependent on challenged condition.
     */
-  const salesCount = (numBuyers * (priceOfProduct - productionCost));
+  const salesScore = (numBuyers * (priceOfProduct - productionCost));
+  const finalScore = currentScore + salesScore;
+
+  let newSalesScore = 0;
+  let newFinalScore = 0;
   let WarrantChallenge = false;
+
   if (Math.random() <= 0.3) {
     WarrantChallenge = true;
+    console.log("Warrant challenge set to true.")
   }
 
-  if (WarrantChallenge == true) {
-    if (product)
+  const challengeCond = WarrantChallenge && productionQuality === "low" && advertisementQuality === "high";
+
+  if (challengeCond) {
+    newSalesScore = salesScore - Math.floor(salesScore * 0.9);
+    newFinalScore = currentScore + newSalesScore;
+    console.log("Warrant challenged. New sales score: ", newSalesScore);
+    console.log("Warrant challenged. New final score: ", newFinalScore);
   }
+
 
 
   //Calculates the final score for each round
-  const finalScore = currentScore + salesCount
+
 
 
   function handleSubmit() {
@@ -101,10 +109,10 @@ export function SalesResults({roundNumber}) {
           It was advertised to an audience of 100 users, and {numBuyers} users bought your product.
         </p>
         <p> 
-          You earned ${priceOfProduct - productionCost}  per product x {numBuyers} units sold = {salesCount} points in sales.
+          You earned ${priceOfProduct - productionCost}  per product x {numBuyers} units sold = {salesScore} points in sales.
         </p><br/>
-        <p> Your score for this round is: {salesCount} </p>
-        <p> Your total score is: {salesCount + currentScore} </p><br/>
+        <p> Your score for this round is: {salesScore} </p>
+        <p> Your total score is: {salesScore + currentScore} </p><br/>
         <p> 
           Click to proceed to the next round to sell products in this marketplace.
         </p>
