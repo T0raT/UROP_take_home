@@ -95,7 +95,7 @@ import {
     return (
       <div className="md:min-w-96 lg:min-w-128 xl:min-w-192 flex flex-col items-center space-y-10">
         {}
-        <br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/><br/><br/>
 
         <div>
           {/* Where is this on the page?? */}
@@ -147,7 +147,7 @@ import {
         <h1><b>Choose if you would like to Warrant your product or not:</b></h1>
         <div className="flex justify-center space-x-4"> 
         <WarrantButton price={'0'} on_button_click={(e) => handleWarrantChoice(e, 0, false)}></WarrantButton>
-        <WarrantButton price={'150'} on_button_click={(e) => handleWarrantChoice(e, 100, true)}></WarrantButton>
+        <WarrantButton price={'100'} on_button_click={(e) => handleWarrantChoice(e, 100, true)}></WarrantButton>
         </div>
 
 
@@ -229,7 +229,7 @@ import {
   //Handles how the warrant button will be displayed
   //Honestly not ideal 
   function WarrantButton({price, on_button_click}){
-    if(price === "$0"){
+    if(price === "0"){
       return(
         <Button handleClick={on_button_click} > Do not warrant my product </Button>
       )
