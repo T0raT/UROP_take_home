@@ -140,11 +140,13 @@ import {
           <PriceButton text={'$15'} on_button_click={(e) => handlePriceChoice(e, 15)}></PriceButton>
           </div>
 
-
         <br/><br/><br/><br/><br/>
+
+
         {/* Player decides to warrant there ad or not here */}
-        {/* TODO: Add description to this section, but logic works for now */}
         <h1><b>Choose if you would like to Warrant your product or not:</b></h1>
+        <p>Your choice: <b>{player.round.get("WarrantChoice") ? "Yes" : "No"}</b></p>
+
         <div className="flex justify-center space-x-4"> 
         <WarrantButton price={'0'} on_button_click={(e) => handleWarrantChoice(e, 0, false)}></WarrantButton>
         <WarrantButton price={'100'} on_button_click={(e) => handleWarrantChoice(e, 100, true)}></WarrantButton>
@@ -274,12 +276,4 @@ import {
 
       </div>
     )
-  }
-  function handleWarrantChoice(e, WarrantPrice, WarrantChoice) {
-    player.round.set("WarrantPrice", WarrantPrice);
-    player.round.set("WarrantChoice", WarrantChoice);
-
-    console.log("saved price of warrant to player.round object: ", WarrantPrice);
-    console.log("Saved player's warrant choice to player.round object: ", WarrantChoice);
-    
   }

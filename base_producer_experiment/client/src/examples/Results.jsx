@@ -114,9 +114,11 @@ export function SalesResults({roundNumber}) {
           <p>
             You chose to produce a <b>{productionQuality}</b> quality product at the cost of <b>{productionCost}</b> points per unit sold.
           </p>
+
           <p>
             You chose to advertise it as a <b>{advertisementQuality}</b> quality product.
           You sold it at a price of <b>${priceOfProduct}</b>.
+          <p>{WarrantChoice ? "You chose to warrant your product." : "You chose to not warrant your product."}</p>
           <br /> <br />
           </p>
   
@@ -170,6 +172,7 @@ export function SalesResults({roundNumber}) {
           <p>
             You chose to advertise it as a <b>{advertisementQuality}</b> quality product.
           You sold it at a price of <b>${priceOfProduct}</b>.
+          <p>{WarrantChoice ? "You chose to warrant your product." : "You chose to not warrant your product."}</p>
           <br /> <br />
           </p>
   
@@ -182,11 +185,10 @@ export function SalesResults({roundNumber}) {
             You earned ${priceOfProduct - productionCost}  per product x {numBuyers} units sold = {numBuyers * (priceOfProduct - productionCost)} points in sales.
           </p><br/>
 
-          <p> Your <b>score</b> for this round is: {salesScore} </p>
-          <p> Your <b>total score</b> is: {finalScore - WarrantPrice} after warrant price deduction</p><br/>
+          <p> Your <b>score</b> for this round is: {salesScore} </p><br/>
 
           <p><b>Your warrant was challenged!!!</b></p>
-          <p><b>But nothing fraudulent was found, you get refunded warrant price plus 25% more of you current round earnings!</b></p><br/>
+          <p><b>But nothing fraudulent was found, no cost on warrant price AND plus 25% more of you current round earnings!</b></p><br/>
           
           <p> Your <b>new score</b> for this round is: {newSalesScore} </p><br/>
           
@@ -215,6 +217,7 @@ export function SalesResults({roundNumber}) {
           <p>
             You chose to advertise it as a <b>{advertisementQuality}</b> quality product.
           You sold it at a price of <b>${priceOfProduct}</b>.
+          <p>{WarrantChoice ? "You chose to warrant your product." : "You chose to not warrant your product."}</p>
           <br /> <br />
           </p>
   
