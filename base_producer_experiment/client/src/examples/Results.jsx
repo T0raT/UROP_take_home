@@ -46,14 +46,17 @@ export function SalesResults({roundNumber}) {
 
   // Warrant RNG logic goes here
   /* 
-    TODO: Logic is done, need to check if the math is correct.
+    TODO:
+    ad = product, you get extra on top of refund
+    ad = high, product = low, you lose 90% of the round money 
+    ad = low, product = high, you get refund warrant money
     */
-  const salesScore = (numBuyers * (priceOfProduct - productionCost));
+  const salesScore = (numBuyers * (priceOfProduct - productionCost)) - WarrantPrice;
   const finalScore = currentScore + salesScore - WarrantPrice;
 
-  let newSalesScore = salesScore;
-  let newFinalScore = finalScore;
-  let WarrantChallenge = Math.random() <= 0.9 && WarrantChoice; //High number for testing
+  let newSalesScore = 0 + salesScore;
+  let newFinalScore = 0 + finalScore;
+  let WarrantChallenge = Math.random() <= 0.3 && WarrantChoice; //High number for testing
   if (WarrantChallenge) {
     console.log("Warrant challenge set to true.")
   }
@@ -62,7 +65,7 @@ export function SalesResults({roundNumber}) {
 
   if (challengeCond) {
     console.log("Warrant was challenged!")
-    newSalesScore = Math.floor(salesScore * 0.1);
+    newSalesScore = Math.floor(newSalesScore * 0.1);
     newFinalScore = currentScore + newSalesScore - WarrantPrice;
     console.log("Warrant challenged. New sales score: ", newSalesScore);
     console.log("Warrant challenged. New final score: ", newFinalScore);
@@ -80,6 +83,7 @@ export function SalesResults({roundNumber}) {
 
   // TODO: Different HTML for different results dependent on warrant choice and challenge
   // This is ugly as hell but it sure works!
+  // This is REALLY ugly but again it works!
   
   if (challengeCond) {
     return (
@@ -100,23 +104,25 @@ export function SalesResults({roundNumber}) {
           </p>
   
           <img src={imageUrl} alt="Toothpaste Standard" width="250" height="250"/>
-  
-          
+
           <p>
             It was advertised to an audience of 100 users, and {numBuyers} users bought your product.
           </p>
           <p> 
-            You earned ${priceOfProduct - productionCost}  per product x {numBuyers} units sold = {salesScore} points in sales.
+            You earned ${priceOfProduct - productionCost}  per product x {numBuyers} units sold = {numBuyers * (priceOfProduct - productionCost)} points in sales.
           </p><br/>
+
           <p> Your score for this round is: {salesScore} </p>
-          <p>A score of {WarrantPrice} will be deducted because you chose to warrant your product</p>
+          <p>After <b>warrant price</b> deduction of {WarrantPrice}: {salesScore - WarrantPrice}</p><br/>
+
           <p> Your total score is: {finalScore} </p><br/>
 
           <p><b>But your warrant was challenged, and your product was found to be fraudulent, you lose 90% of your earnings for the current round.</b></p>
           <br/>
-
+          
           <p> Your <b>new</b> score for this round is: {newSalesScore} </p>
-          <p>A score of {WarrantPrice} will be deducted because you chose to warrant your product</p>
+          <p>After <b>warrant price</b> deduction of {WarrantPrice}: {newSalesScore - WarrantPrice}</p><br/>
+          
           <p> Your total score is: {newFinalScore} </p><br/>
 
           <p> 
@@ -152,10 +158,11 @@ export function SalesResults({roundNumber}) {
             It was advertised to an audience of 100 users, and {numBuyers} users bought your product.
           </p>
           <p> 
-            You earned ${priceOfProduct - productionCost}  per product x {numBuyers} units sold = {salesScore} points in sales.
+            You earned ${priceOfProduct - productionCost}  per product x {numBuyers} units sold = {numBuyers * (priceOfProduct - productionCost)} points in sales.
           </p><br/>
+          <p>If you chose to warrant your product, then you an amount of <b>{WarrantPrice}</b> will be deducted from your score.</p><br/>
           <p> Your score for this round is: {salesScore} </p>
-          <p> Your total score is: {salesScore + currentScore} </p><br/>
+          <p> Your total score is: {finalScore} </p><br/>
           <p> 
             Click to proceed to the next round to sell products in this marketplace.
           </p>
