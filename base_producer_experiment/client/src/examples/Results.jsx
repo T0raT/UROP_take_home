@@ -46,29 +46,46 @@ export function SalesResults({roundNumber}) {
 
   // Warrant RNG logic goes here
   /* 
-    TODO:
-    ad = product, you get extra on top of refund
-    ad = high, product = low, you lose 90% of the round money 
-    ad = low, product = high, you get refund warrant money
+    Case 1: ad = product, you get extra on top of refund
+    Case 2: ad = high, product = low, you lose 90% of the round money 
+    Case 3: ad = low, product = high, you get refund warrant money
     */
-  const salesScore = (numBuyers * (priceOfProduct - productionCost)) - WarrantPrice;
-  const finalScore = currentScore + salesScore - WarrantPrice;
+
+  let salesScore = (numBuyers * (priceOfProduct - productionCost));
+  let finalScore = currentScore + salesScore;
+
 
   let newSalesScore = 0 + salesScore;
   let newFinalScore = 0 + finalScore;
-  let WarrantChallenge = Math.random() <= 0.3 && WarrantChoice; //High number for testing
+  let WarrantChallenge = Math.random() <= 0.3 && WarrantChoice;
   if (WarrantChallenge) {
     console.log("Warrant challenge set to true.")
   }
+  
+  let challengeCond = 0;
 
-  const challengeCond = WarrantChallenge && productionQuality === "low" && advertisementQuality === "high";
-
-  if (challengeCond) {
-    console.log("Warrant was challenged!")
-    newSalesScore = Math.floor(newSalesScore * 0.1);
-    newFinalScore = currentScore + newSalesScore - WarrantPrice;
-    console.log("Warrant challenged. New sales score: ", newSalesScore);
-    console.log("Warrant challenged. New final score: ", newFinalScore);
+  if (WarrantChallenge) {
+    if (productionQuality === "low" && advertisementQuality === "high") {
+      challengeCond = 1;
+      console.log("Warrant was fraud!")
+      newSalesScore = Math.floor(newSalesScore * 0.1);
+      newFinalScore = currentScore + newSalesScore - WarrantPrice;
+      console.log("Warrant challenged. New sales score: ", newSalesScore);
+      console.log("Warrant challenged. New final score: ", newFinalScore);
+    } else if (productionQuality === "high" && advertisementQuality === "low") {
+      challengeCond = 1;
+      console.log("Warrant is ok! Money refunded.")
+      console.log("Warrant challenged. New sales score: ", newSalesScore);
+      console.log("Warrant challenged. New final score: ", newFinalScore);
+    } else {
+      challengeCond = 2;
+      console.log("Warrant is real, refunded plus extra 25% of round score.")
+      newSalesScore += Math.floor(newSalesScore * 0.25);
+      newFinalScore = currentScore + newSalesScore;
+    }
+  } else if (WarrantChoice){ // In the case that you weren't challenge but you still have a warrant
+    salesScore -= WarrantPrice*0.5;
+    finalScore = currentScore + salesScore;
   }
 
 
@@ -77,7 +94,7 @@ export function SalesResults({roundNumber}) {
   function handleSubmit() {
     console.log('Moving on from results round');
     player.stage.set("submit", true);
-    if (challengeCond) {player.set("score", newFinalScore);}
+    if (challengeCond === 1 || challengeCond === 2) {player.set("score", newFinalScore);}
     player.set("score", finalScore);
   }
 
@@ -85,7 +102,7 @@ export function SalesResults({roundNumber}) {
   // This is ugly as hell but it sure works!
   // This is REALLY ugly but again it works!
   
-  if (challengeCond) {
+  if (challengeCond === 1) { //Case of warrant challenge: Mismatching quality
     return (
       <div className="mt-3 sm:mt-5 p-20">
         <h1 className="text-lg leading-6 font-medium text-gray-900">
@@ -117,13 +134,63 @@ export function SalesResults({roundNumber}) {
 
           <p> Your total score is: {finalScore} </p><br/>
 
-          <p><b>But your warrant was challenged, and your product was found to be fraudulent, you lose 90% of your earnings for the current round.</b></p>
+          <p><b>But your warrant was challenged!!!</b></p>
+          <p>If you chose <b>low</b> quality product but <b>high</b> quality ad, you <b>lose 90%</b> of round score.</p>
+          <p>If you chose <b>high</b> quality product but <b>low</b> quality ad, your warrant will be refunded.</p>
           <br/>
           
-          <p> Your <b>new</b> score for this round is: {newSalesScore} </p>
-          <p>After <b>warrant price</b> deduction of {WarrantPrice}: {newSalesScore - WarrantPrice}</p><br/>
+          <p> Your <b>new</b> score for this round is: <b>{newSalesScore}</b> </p>
+          <p>After <b>warrant price</b> deduction of {WarrantPrice}: <b>{newSalesScore - WarrantPrice}</b></p><br/>
+
+          <p>If you're eligible for a <b>refund</b> of warrant, then your score is: {newSalesScore}</p><br/>
           
-          <p> Your total score is: {newFinalScore} </p><br/>
+          <p>Your <b>total score</b> is: {newFinalScore} </p><br/>
+
+          <p> 
+            Click to proceed to the next round to sell products in this marketplace.
+          </p>
+        </div>
+        <Button handleClick={handleSubmit} primary>
+          I'm done!
+        </Button>
+      </div>
+    );
+  } else if (challengeCond === 2) { // Case of warrant challenge: Matching quality
+    return (
+      <div className="mt-3 sm:mt-5 p-20">
+        <h1 className="text-lg leading-6 font-medium text-gray-900">
+          Sales statistics below: 
+        </h1>
+
+        <div className="text-lg mt-2 mb-6">
+          {/* <p className="text-sm text-gray-500"> */}
+          <p>
+            You chose to produce a <b>{productionQuality}</b> quality product at the cost of <b>{productionCost}</b> points per unit sold.
+          </p>
+          <p>
+            You chose to advertise it as a <b>{advertisementQuality}</b> quality product.
+          You sold it at a price of <b>${priceOfProduct}</b>.
+          <br /> <br />
+          </p>
+  
+          <img src={imageUrl} alt="Toothpaste Standard" width="250" height="250"/>
+
+          <p>
+            It was advertised to an audience of 100 users, and {numBuyers} users bought your product.
+          </p>
+          <p> 
+            You earned ${priceOfProduct - productionCost}  per product x {numBuyers} units sold = {numBuyers * (priceOfProduct - productionCost)} points in sales.
+          </p><br/>
+
+          <p> Your <b>score</b> for this round is: {salesScore} </p>
+          <p> Your <b>total score</b> is: {finalScore - WarrantPrice} after warrant price deduction</p><br/>
+
+          <p><b>Your warrant was challenged!!!</b></p>
+          <p><b>But nothing fraudulent was found, you get refunded warrant price plus 25% more of you current round earnings!</b></p><br/>
+          
+          <p> Your <b>new score</b> for this round is: {newSalesScore} </p><br/>
+          
+          <p> Your <b>total</b> score is: {newFinalScore} </p><br/>
 
           <p> 
             Click to proceed to the next round to sell products in this marketplace.
@@ -160,9 +227,9 @@ export function SalesResults({roundNumber}) {
           <p> 
             You earned ${priceOfProduct - productionCost}  per product x {numBuyers} units sold = {numBuyers * (priceOfProduct - productionCost)} points in sales.
           </p><br/>
-          <p>If you chose to warrant your product, then you an amount of <b>{WarrantPrice}</b> will be deducted from your score.</p><br/>
-          <p> Your score for this round is: {salesScore} </p>
-          <p> Your total score is: {finalScore} </p><br/>
+          <p>If you chose to warrant your product, then half of <b>{WarrantPrice}</b>(Warrant Price) will be deducted from your score.</p><br/>
+          <p>Your <b>score</b> for this round is: {salesScore}</p>
+          <p>Your <b>total score</b> is: {finalScore}</p><br/>
           <p> 
             Click to proceed to the next round to sell products in this marketplace.
           </p>
