@@ -146,6 +146,7 @@ import {
         {/* Player decides to warrant there ad or not here */}
         <h1><b>Choose if you would like to Warrant your product or not:</b></h1>
         <p>Your choice: <b>{player.round.get("WarrantChoice") ? "Yes" : "No"}</b></p>
+        <p><strong>Note: </strong>If you warrant, you will have increased audiences, but there is a chance your warrant is challenged, and based on your honesty, either rewarded or punished.</p>
 
         <div className="flex justify-center space-x-4"> 
         <WarrantButton price={'0'} on_button_click={(e) => handleWarrantChoice(e, 0, false)}></WarrantButton>

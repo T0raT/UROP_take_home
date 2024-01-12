@@ -32,7 +32,7 @@ export function SalesResults({roundNumber}) {
   let points = priceOfProduct
 
   const min = 10;
-  const max = 90;
+  let max = 90;
   
   //  switch (advertisementQuality){
   //    case "high":
@@ -42,7 +42,7 @@ export function SalesResults({roundNumber}) {
   //      switch (priceOfProduct) {case "high": min =10, max=20; break; case "low": min = 50, max = 80; break;}
   //  }
 
-  const numBuyers = Math.floor((Math.random() * (max - min ) + min)) ;
+
 
   // Warrant RNG logic goes here
   /* 
@@ -50,7 +50,13 @@ export function SalesResults({roundNumber}) {
     Case 2: ad = high, product = low, you lose 90% of the round money 
     Case 3: ad = low, product = high, you get refund warrant money
     */
+  // If the player warrants, they get a larger number of audiences
+  if (WarrantChoice) {
+    max = 140;
+    console.log("Max number of audiences is now: " + max);
+  }
 
+  let numBuyers = Math.floor((Math.random() * (max - min ) + min));
   let salesScore = (numBuyers * (priceOfProduct - productionCost));
   let finalScore = currentScore + salesScore;
 
@@ -58,6 +64,8 @@ export function SalesResults({roundNumber}) {
   let newSalesScore = 0 + salesScore;
   let newFinalScore = 0 + finalScore;
   let WarrantChallenge = Math.random() <= 0.3 && WarrantChoice;
+
+
   if (WarrantChallenge) {
     console.log("Warrant challenge set to true.")
   }
@@ -125,7 +133,7 @@ export function SalesResults({roundNumber}) {
           <img src={imageUrl} alt="Toothpaste Standard" width="250" height="250"/>
 
           <p>
-            It was advertised to an audience of 100 users, and {numBuyers} users bought your product.
+            It was advertised to an audience of {min + max} users, and {numBuyers} users bought your product.
           </p>
           <p> 
             You earned ${priceOfProduct - productionCost}  per product x {numBuyers} units sold = {numBuyers * (priceOfProduct - productionCost)} points in sales.
@@ -179,7 +187,7 @@ export function SalesResults({roundNumber}) {
           <img src={imageUrl} alt="Toothpaste Standard" width="250" height="250"/>
 
           <p>
-            It was advertised to an audience of 100 users, and {numBuyers} users bought your product.
+            It was advertised to an audience of {min + max} users, and {numBuyers} users bought your product.
           </p>
           <p> 
             You earned ${priceOfProduct - productionCost}  per product x {numBuyers} units sold = {numBuyers * (priceOfProduct - productionCost)} points in sales.
@@ -225,7 +233,7 @@ export function SalesResults({roundNumber}) {
   
           
           <p>
-            It was advertised to an audience of 100 users, and {numBuyers} users bought your product.
+            It was advertised to an audience of {min + max} users, and {numBuyers} users bought your product.
           </p>
           <p> 
             You earned ${priceOfProduct - productionCost}  per product x {numBuyers} units sold = {numBuyers * (priceOfProduct - productionCost)} points in sales.
