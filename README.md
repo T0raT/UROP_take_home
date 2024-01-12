@@ -16,7 +16,21 @@
 ### Short Answer 2:
 ##### Discuss why this feature is reflective of a real-world marketplace and what kind of trade-offs you would want to consider to make this feature easy for users to employ.
 
+Warranties are one of the most essential parts of real-world business strategies. Its key aspect is building customer trust and an act of confidence, assuring the product quality and reliability, which, if true, puts further assurance in trust among customers. Warranties can help differentiate your product in a heavily competitive market, vital to performing well in markets that value quality and reliability. For example, retailers like Walmart and Target all offer generous return policies and warranties, a significant part of their value proposition today. The goal is to improve customer satisfaction and, ultimately, customer loyalty. It's a delicate balance of immediate cost and long-term customer relationships. Of course, not all of its complex interactions with the market and characteristics are carried over in a simulated game since the game is a simplified version. 
 
+Inside "Advertise. JSX", it allows players to decide on product quality, advertising strategy, pricing, and my implementation of warranties. Although simplistic, it mirrors real-world business scenarios where companies make strategic decisions on similar aspects, ultimately affecting profitability, customer perception, and market performance. And with all markets, they are sometimes unpredictable, so my warranties feature is inherently probabilistic at its core.  
+
+Five possible "routes" were to be considered when designing the warrant feature, depending on player choice, not only will players get an increased number of potential customers, they will have the following punishment/rewards:
+1. If the player chooses to warrant, and said player's warrant is challenged:
+Product Quality equals Advertised Quality: The Player is rewarded for honesty, which nets players more points if they opt for this option.
+2. Product Quality is low, but Advertised Quality is high: The Player is punished for deceiving customers, and players may lose most of their profits in this round.
+3. Product Quality is High, but Advertised quality is low: This is the most interesting component, but I think the player shouldn't be punished. Hence, the player will receive back the price of the warrant. While it is unlikely that players will opt for this choice, regardless, it is still possible and should involve a type of reward.
+
+If the player chooses to warrant but is not challenged, the player should get back some percentage of the warrant price. And lastly, with no warrant, the game continues the same, just like before the warrant feature was implemented.
+
+When attempting to implement this feature, the most significant trade-off is "Complexity vs. Player Engagement". There is a limit to how many aspects of the real-world market one can implement before it is too complex for a game, and players may lose interest quickly when they read a wall of texts explaining the intricacies of game mechanics. We still want to include the most vital elements of warranties and how they should affect sales results. By removing real-world complexity, such as terms and conditions that often come with the warranties, I want to balance depth/authenticity without confusing or overwhelming the players. For players who don't have a background in business, the feature should be simple enough for them to understand the risks and rewards involved in offering warranties.
+
+The warrant feature should be a risk and reward mechanic, and the randomness element will help make the game more dynamic and unpredictable. While too much randomness can detour from real-world situations and reduce the impact of the player strategy, a good balance between player strategy and the unpredictability of the market is crucial.
 
 
 # empirica-dev
