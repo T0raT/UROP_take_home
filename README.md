@@ -1,3 +1,15 @@
+# Take home assignment short answers:
+### Short Answer 1: 
+##### Discuss how you would plan the feature including any designs, references, links to resources you’ve used to determine the best way to develop such a feature.
+
+
+
+### Short Answer 2:
+##### Discuss why this feature is reflective of a real-world marketplace and what kind of trade-offs you would want to consider to make this feature easy for users to employ.
+
+
+
+
 # empirica-dev
 Empirica Development Repository for Experimentation.
 
