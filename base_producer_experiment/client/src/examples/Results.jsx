@@ -63,7 +63,7 @@ export function SalesResults({roundNumber}) {
 
   let newSalesScore = 0 + salesScore;
   let newFinalScore = 0 + finalScore;
-  let WarrantChallenge = Math.random() <= 0.3 && WarrantChoice;
+  let WarrantChallenge = Math.random() <= 0.5 && WarrantChoice; // Initial condition for warrant
 
 
   if (WarrantChallenge) {
@@ -109,6 +109,7 @@ export function SalesResults({roundNumber}) {
   // TODO: Different HTML for different results dependent on warrant choice and challenge
   // This is ugly as hell but it sure works!
   // This is REALLY ugly but again it works!
+  // There are sections of code here purely responsible for visual purposes.
   
   if (challengeCond === 1) { //Case of warrant challenge: Mismatching quality
     return (
@@ -142,19 +143,16 @@ export function SalesResults({roundNumber}) {
           <p> Your score for this round is: {salesScore} </p>
           <p>After <b>warrant price</b> deduction of {WarrantPrice}: {salesScore - WarrantPrice}</p><br/>
 
-          <p> Your total score is: {finalScore} </p><br/>
-
           <p><b>But your warrant was challenged!!!</b></p>
           <p>If you chose <b>low</b> quality product but <b>high</b> quality ad, you <b>lose 90%</b> of round score.</p>
-          <p>If you chose <b>high</b> quality product but <b>low</b> quality ad, your warrant will be refunded.</p>
+          <p>If you chose <b>high</b> quality product but <b>low</b> quality ad, no warrant cost of {WarrantPrice} deducted.</p>
           <br/>
           
           <p> Your <b>new</b> score for this round is: <b>{newSalesScore}</b> </p>
-          <p>After <b>warrant price</b> deduction of {WarrantPrice}: <b>{newSalesScore - WarrantPrice}</b></p><br/>
-
-          <p>If you're eligible for a <b>refund</b> of warrant, then your score is: {newSalesScore}</p><br/>
+          <p>After <b>warrant price</b> deduction of {WarrantPrice} (If applicable): <b>{newSalesScore - WarrantPrice}</b></p><br/>
           
-          <p>Your <b>total score</b> is: {newFinalScore} </p><br/>
+          {/* This is purely for visual purposes, since the warrant price is deducted in the actual newFinalScore variable, not newSalesScore */}
+          <p>Your <b>total score</b> is: {currentScore} + {productionQuality === "low" ? (newSalesScore-WarrantPrice) : newSalesScore} = {newFinalScore} </p><br/>
 
           <p> 
             Click to proceed to the next round to sell products in this marketplace.
@@ -193,14 +191,15 @@ export function SalesResults({roundNumber}) {
             You earned ${priceOfProduct - productionCost}  per product x {numBuyers} units sold = {numBuyers * (priceOfProduct - productionCost)} points in sales.
           </p><br/>
 
-          <p> Your <b>score</b> for this round is: {salesScore} </p><br/>
+          <p> Your <b>score</b> for this round is: {salesScore} </p>
+          <p>After <b>warrant price</b> deduction of {WarrantPrice}: {salesScore - WarrantPrice}</p><br/>
 
           <p><b>Your warrant was challenged!!!</b></p>
           <p><b>But nothing fraudulent was found, no cost on warrant price AND plus 25% more of you current round earnings!</b></p><br/>
           
           <p> Your <b>new score</b> for this round is: {newSalesScore} </p><br/>
           
-          <p> Your <b>total</b> score is: {newFinalScore} </p><br/>
+          <p>Your <b>total score</b> is: {currentScore} + {newSalesScore} = {newFinalScore} </p><br/>
 
           <p> 
             Click to proceed to the next round to sell products in this marketplace.
@@ -240,7 +239,8 @@ export function SalesResults({roundNumber}) {
           </p><br/>
           <p>If you chose to warrant your product, then half of <b>{WarrantPrice}</b>(Warrant Price) will be deducted from your score.</p><br/>
           <p>Your <b>score</b> for this round is: {salesScore}</p>
-          <p>Your <b>total score</b> is: {finalScore}</p><br/>
+          <p>Your <b>total score</b> is: {currentScore} + {salesScore} = {finalScore} </p><br/>
+
           <p> 
             Click to proceed to the next round to sell products in this marketplace.
           </p>
