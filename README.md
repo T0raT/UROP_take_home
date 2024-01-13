@@ -14,6 +14,7 @@
 
 #### Links to resources:
   - [Warranties/Guarantees post on Linkedin](https://www.linkedin.com/advice/0/why-should-you-offer-warranty-guarantee-your-products): Talks about real-world implementations of warranties and gaurantees, helped me think about my own implementation. I included guarantees in my searches because the description of warranties in this assignment also is applicable to guarantees.
+  - [Forbes post on implementing Guarantees](https://www.forbes.com/sites/forbesagencycouncil/2018/05/16/the-power-of-a-guarantee-in-driving-b2b-revenue/?sh=32c19d106ff2): Dicussed various pros and cons in implementing a gaurantee in a business and how it drives revenue.
   - [MDN Web Docs](https://developer.mozilla.org/en-US/): Great for any questions or I forget anything regarding CSS/HTML and JS.
   - [Empirica Documentation](https://docs.empirica.ly/tutorials/beginner-experiment-prisoners-dilemma): The tutorial section was GREAT for understanding the structure of this project.
   - [React Documentation](https://react.dev/learn): Also great for understanding JSX and react components that was utilized in this project since it is built with JSX.
