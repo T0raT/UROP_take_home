@@ -12,6 +12,12 @@
 
    Throughout my time implementing the warrant feature. I will comment on my code to help with any to-do's, reminders, and clarifying comments that allow me to remember and understand what pieces of code are doing. On top of this, I will be committing changes to GitHub to ensure that if I make errors that I can't resolve, I can revert to a previous commit. 
 
+#### Links to resources:
+  - [Warranties/Guarantees post on Linkedin](https://www.linkedin.com/advice/0/why-should-you-offer-warranty-guarantee-your-products): Talks about real-world implementations of warranties and gaurantees, helped me think about my own implementation. I included guarantees in my searches because the description of warranties in this assignment also is applicable to guarantees.
+  - [MDN Web Docs](https://developer.mozilla.org/en-US/): Great for any questions or I forget anything regarding CSS/HTML and JS.
+  - [Empirica Documentation](https://docs.empirica.ly/tutorials/beginner-experiment-prisoners-dilemma): The tutorial section was GREAT for understanding the structure of this project.
+  - [React Documentation](https://react.dev/learn): Also great for understanding JSX and react components that was utilized in this project since it is built with JSX.
+
    
 ### Short Answer 2:
 ##### Discuss why this feature is reflective of a real-world marketplace and what kind of trade-offs you would want to consider to make this feature easy for users to employ.
