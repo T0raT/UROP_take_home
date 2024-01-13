@@ -51,7 +51,7 @@ import {
       console.log("Saved priceOfProduct to player.round object: ", priceOfProduct);
     }
 
-    // As the name describes, warrant price and choice are saved here.  
+    // Warrant price and choice are set here.  
     function handleWarrantChoice(e, WarrantPrice, WarrantChoice) {
       player.round.set("WarrantPrice", WarrantPrice);
       player.round.set("WarrantChoice", WarrantChoice);
@@ -229,8 +229,7 @@ import {
     )
   }
 
-  //Handles how the warrant button will be displayed
-  //Honestly not ideal 
+  //Handles how the warrant button will be displayed, just like PriceButton
   function WarrantButton({price, on_button_click}){
     if(price === "0"){
       return(

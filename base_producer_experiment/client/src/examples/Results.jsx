@@ -49,7 +49,9 @@ export function SalesResults({roundNumber}) {
     Case 1: ad = product, you get extra on top of refund
     Case 2: ad = high, product = low, you lose 90% of the round money 
     Case 3: ad = low, product = high, you get refund warrant money
+    Case 4: not challenged, 50% of warrant cost.
     */
+
   // If the player warrants, they get a larger number of audiences
   if (WarrantChoice) {
     max = 140;
@@ -64,8 +66,6 @@ export function SalesResults({roundNumber}) {
   let newSalesScore = 0 + salesScore;
   let newFinalScore = 0 + finalScore;
   let WarrantChallenge = Math.random() <= 0.5 && WarrantChoice; // Initial condition for warrant
-
-
   if (WarrantChallenge) {
     console.log("Warrant challenge set to true.")
   }
@@ -73,19 +73,19 @@ export function SalesResults({roundNumber}) {
   let challengeCond = 0;
 
   if (WarrantChallenge) {
-    if (productionQuality === "low" && advertisementQuality === "high") {
+    if (productionQuality === "low" && advertisementQuality === "high") { // Mismatching quality
       challengeCond = 1;
       console.log("Warrant was fraud!")
       newSalesScore = Math.floor(newSalesScore * 0.1);
       newFinalScore = currentScore + newSalesScore - WarrantPrice;
       console.log("Warrant challenged. New sales score: ", newSalesScore);
       console.log("Warrant challenged. New final score: ", newFinalScore);
-    } else if (productionQuality === "high" && advertisementQuality === "low") {
+    } else if (productionQuality === "high" && advertisementQuality === "low") { // Mismatching quality
       challengeCond = 1;
       console.log("Warrant is ok! Money refunded.")
       console.log("Warrant challenged. New sales score: ", newSalesScore);
       console.log("Warrant challenged. New final score: ", newFinalScore);
-    } else {
+    } else { // Matching quality
       challengeCond = 2;
       console.log("Warrant is real, refunded plus extra 25% of round score.")
       newSalesScore += Math.floor(newSalesScore * 0.25);
